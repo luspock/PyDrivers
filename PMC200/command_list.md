@@ -1,0 +1,22 @@
+# Command List for PMC200
+
+##
+
+*IDN?
+
+ACTTYP "850F","495B"
+
+TO232
+
+RUN1 RUN2
+
+STOP1
+STOP2
+
+VEL?
+VEL1 x
+VEL2 x
+MOVE1 x
+POS1?
+POS2?
+
