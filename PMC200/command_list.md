@@ -44,6 +44,12 @@ TIME?
 *STB?
 
 *EVENT?
+EVENT bit
+7 6 5 4 3 2 1 0
+bit0: Axis 1 Forward Limit Bit
+bit1: Axis 2 Reverse Limit Bit
+bit2: Axis 2 Forward Limit Bit
+bit3: Axis 2 Reverse Limit Bit
 
 *DMC define a macro
 *RMC remove one
