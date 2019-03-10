@@ -41,7 +41,7 @@ class PMC200:
 		cmd = 'ACTTYP {0},{1}\n'.format(act[0], act[1]).encode("ascii")
 		self.ser.write(cmd)
 
-		# ECHO
+		# ECHO off
 		cmd = 'ECHO 0\n'.encode("ascii")
 		self.ser.write(cmd)
 
