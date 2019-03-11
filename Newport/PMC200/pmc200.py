@@ -11,7 +11,6 @@ class PMC200:
 	def initialize(self):
 		self.to232()
 		self.config()
-		# todo
 		# move to a end and set zero
 		pmc200.goto_end(-1)
 		# ZERO
@@ -31,6 +30,15 @@ class PMC200:
 		self.ser.write(cmd)
 
 	def config(self):
+		# ECHO off
+		# need to turn off the echo off first, otherwise the parse
+		# in the follow will fail.
+		cmd = 'ECHO 0\n'.encode("ascii")
+		self.ser.write(cmd)
+		time.sleep(0.5)
+		# clear the message from PMC200 before disabling ECHO
+		self.ser.flushInput()
+
 		# ACTTYP
 		act = []
 		for act_type in Config.ACTTYP:
@@ -41,15 +49,14 @@ class PMC200:
 		cmd = 'ACTTYP {0},{1}\n'.format(act[0], act[1]).encode("ascii")
 		self.ser.write(cmd)
 
-		# ECHO off
-		cmd = 'ECHO 0\n'.encode("ascii")
-		self.ser.write(cmd)
-
-		# todo
 		# Unit
 		cmd = 'UNITS "{0}","{1}"\n'.format(Config.UNIT[0], Config.UNIT[1]).encode("ascii")
 		self.ser.write(cmd)
-		#
+		# todo
+
+	def reset(self):
+		cmd = '*RST\n'.encode("ascii")
+		self.ser.write(cmd)
 
 	def open(self):
 		if self.ser.is_open:
@@ -173,10 +180,13 @@ if __name__ == "__main__":
 	# debug variable
 	initialized = False
 
-	pmc200 = PMC200()
+	pmc200 = PMC200(port='COM5')
 	if not initialized:
 		pmc200.initialize()
+		print("Initialize complete!")
 	try:
+		# wait for command to start
+		input("Press enter to continue if ready!\n")
 		# Task
 		target_pos = Config.CENTER_POS
 		for item in Config.PROCESS:
