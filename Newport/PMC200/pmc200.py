@@ -8,13 +8,14 @@ class PMC200:
 		self.ser = serial.Serial(port, 9600, timeout=1)  # open serial port
 
 	# Every time power on a configuration is required.
-	def initialize(self):
-		self.to232()
-		self.config()
-		# move to a end and set zero
-		pmc200.goto_end(-1)
-		# ZERO
-		pmc200.zero()
+	def initialize(self, has_zero=True):
+		if not has_zero:
+			self.to232()
+			self.config()
+			# move to a end and set zero
+			pmc200.goto_end(-1)
+			# ZERO
+			pmc200.zero()
 		# move to half position of the whole range
 		pmc200.move(0, Config.CENTER_POS)
 		# wait
@@ -35,7 +36,7 @@ class PMC200:
 		# in the follow will fail.
 		cmd = 'ECHO 0\n'.encode("ascii")
 		self.ser.write(cmd)
-		time.sleep(0.5)
+		time.sleep(2)
 		# clear the message from PMC200 before disabling ECHO
 		self.ser.flushInput()
 
@@ -178,12 +179,10 @@ class PMC200:
 
 if __name__ == "__main__":
 	# debug variable
-	initialized = False
+	zeroed = True
 
 	pmc200 = PMC200(port='COM5')
-	if not initialized:
-		pmc200.initialize()
-		print("Initialize complete!")
+	# pmc200.initialize(has_zero=zeroed)
 	try:
 		# wait for command to start
 		input("Press enter to continue if ready!\n")
