@@ -182,7 +182,7 @@ if __name__ == "__main__":
 	zeroed = True
 
 	pmc200 = PMC200(port='COM5')
-	# pmc200.initialize(has_zero=zeroed)
+	pmc200.initialize(has_zero=zeroed)
 	try:
 		# wait for command to start
 		input("Press enter to continue if ready!\n")

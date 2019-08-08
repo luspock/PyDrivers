@@ -7,7 +7,7 @@ class Config:
     PROCESS = [
                 [1, 4, 1],
                 [2, 3, 0.5],
-                [9, 2, 0.5]
+                [5, 2, 0.5]
     ]
     POS_PROCESS = [
         [
