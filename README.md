@@ -1,4 +1,4 @@
-# PyDrivers
+# PyExp
 Python Drivers for Different Experiment Equipment
 
 ## List
